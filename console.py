@@ -119,6 +119,92 @@ class HBNBCommand(cmd.Cmd):
         except NameError:
             print("** class doesn't exist **")
 
+    def strip_clean(self, args):
+        """
+        elimina el argumento y devuelve una cadena de comando
+        """
+        new_list = []
+        new_list.append(args[0])
+        try:
+            my_dict = eval(
+                args[1][args[1].find('{'):args[1].find('}')+1])
+        except Exception:
+            my_dict = None
+        if isinstance(my_dict, dict):
+            new_str = args[1][args[1].find('(')+1:args[1].find(')')]
+            new_list.append(((new_str.split(", "))[0]).strip('"'))
+            new_list.append(my_dict)
+            return new_list
+        new_str = args[1][args[1].find('(')+1:args[1].find(')')]
+        new_list.append(" ".join(new_str.split(", ")))
+        return " ".join(i for i in new_list)
+
+    def do_show(self, line):
+        """
+        representacion del string en instancia
+        """
+        try:
+            if not line:
+                raise SyntaxError()
+            lists = line.split(" ")
+            if lists[0] not in self.a_classes:
+                raise NameError()
+            if len(lists) < 2:
+                raise IndexError()
+            obj = storage.all()
+            key = lists[0] + '.' + lists[1]
+            if key in obj:
+                print(obj[key])
+            else:
+                raise KeyError()
+        except SyntaxError:
+            print("** class name missing **")
+        except NameError:
+            print("** class doesn't exist **")
+        except IndexError:
+            print("** instance id missing **")
+        except KeyError:
+            print("** no instance found **")
+
+    def do_update(self, line):
+        """
+        Actualiza una instancia agregando o actualizando el atributo
+        """
+        try:
+            if not line:
+                raise SyntaxError()
+            lists = split(line, " ")
+            if lists[0] not in self.a_classes:
+                raise NameError()
+            if len(lists) < 2:
+                raise IndexError()
+            obj = storage.all()
+            key = lists[0] + '.' + lists[1]
+            if key not in obj:
+                raise KeyError()
+            if len(lists) < 3:
+                raise AttributeError()
+            if len(lists) < 4:
+                raise ValueError()
+            v = obj[key]
+            try:
+                v.__dict__[lists[2]] = eval(lists[3])
+            except Exception:
+                v.__dict__[lists[2]] = lists[3]
+                v.save()
+        except SyntaxError:
+            print("** class name missing **")
+        except NameError:
+            print("** class doesn't exist **")
+        except IndexError:
+            print("** instance id missing **")
+        except KeyError:
+            print("** no instance found **")
+        except AttributeError:
+            print("** attribute name missing **")
+        except ValueError:
+            print("** value missing **")
+
     def default(self, line):
         """
         recuperar todas las instancias de una clase
