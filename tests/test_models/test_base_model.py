@@ -1,69 +1,80 @@
 #!/usr/bin/python3
-"""test for BaseModel"""
+""" unit test for class BaseModel """
+
+import models
 import unittest
-import os
-from models.base_model import BaseModel
-import pep8
+
+BaseModel = models.base_model.BaseModel
 
 
-class TestBaseModel(unittest.TestCase):
-    """this will test the base model class"""
+class TestBaseModelDocs(unittest.TestCase):
+    """ validate docstring in the class """
 
-    @classmethod
-    def setUpClass(cls):
-        """setup for the test"""
-        cls.base = BaseModel()
-        cls.base.name = "Kev"
-        cls.base.num = 20
+    def test_doc_module(self):
+        """ validate documentation module """
+        doc = models.base_model.__doc__
+        assert doc is not None
 
-    @classmethod
-    def teardown(cls):
-        """at the end of the test this will tear it down"""
-        del cls.base
+    def test_doc_class(self):
+        """ validate documentation class """
+        doc = BaseModel.__doc__
+        assert doc is not None
 
-    def tearDown(self):
-        """teardown"""
-        try:
-            os.remove("file.json")
-        except Exception:
-            pass
-
-    def test_pep8_BaseModel(self):
-        """Testing for pep8"""
-        style = pep8.StyleGuide(quiet=True)
-        p = style.check_files(['models/base_model.py'])
-        self.assertEqual(p.total_errors, 0, "fix pep8")
-
-    def test_checking_for_docstring_BaseModel(self):
-        """checking for docstrings"""
-        self.assertIsNotNone(BaseModel.__doc__)
-        self.assertIsNotNone(BaseModel.__init__.__doc__)
-        self.assertIsNotNone(BaseModel.__str__.__doc__)
-        self.assertIsNotNone(BaseModel.save.__doc__)
-        self.assertIsNotNone(BaseModel.to_dict.__doc__)
-
-    def test_method_BaseModel(self):
-        """chekcing if Basemodel have methods"""
-        self.assertTrue(hasattr(BaseModel, "__init__"))
-        self.assertTrue(hasattr(BaseModel, "save"))
-        self.assertTrue(hasattr(BaseModel, "to_dict"))
-
-    def test_init_BaseModel(self):
-        """test if the base is an type BaseModel"""
-        self.assertTrue(isinstance(self.base, BaseModel))
-
-    def test_save_BaesModel(self):
-        """test if the save works"""
-        self.base.save()
-        self.assertNotEqual(self.base.created_at, self.base.updated_at)
-
-    def test_to_dict_BaseModel(self):
-        """test if dictionary works"""
-        base_dict = self.base.to_dict()
-        self.assertEqual(self.base.__class__.__name__, 'BaseModel')
-        self.assertIsInstance(base_dict['created_at'], str)
-        self.assertIsInstance(base_dict['updated_at'], str)
+    def test_doc_methods_class(self):
+        """ validate documentation methods """
+        l_meth = ["save", "__init__", "__str__", "to_dict"]
+        for key in BaseModel.__dict__.keys():
+            if key is l_meth:
+                doc = key.__doc__
+                assert doc is not None
 
 
-if __name__ == "__main__":
+class TestBaseModelInstances(unittest.TestCase):
+    """ validate creation objects and use methods """
+    def setUp(self):
+        """create object new BaseModel """
+        self.new_model = BaseModel()
+
+    def test_create_object(self):
+        """ validate created instance """
+        self.assertIsInstance(self.new_model, BaseModel)
+
+    def test_string_representation(self):
+        """ validate string representation """
+        rep_str = str(self.new_model)
+        list_att = ['BaseModel', 'id', 'created_at', 'updated_at']
+        num_att = 0
+        for att in list_att:
+            if att in rep_str:
+                num_att += 1
+        self.assertTrue(4 == num_att)
+
+    def test_method_save(self):
+        """ validate save method """
+        current = self.new_model.updated_at
+        self.new_model.save()
+        new = self.new_model.updated_at
+        self.assertNotEqual(current, new)
+
+    def test_add_attributes(self):
+        """ add attributes to object"""
+        self.new_model.name = "Holberton"
+        self.new_model.my_number = 98
+        list_att = [self.new_model.name, self.new_model.my_number]
+        expected = ["Holberton", 98]
+        self.assertEqual(expected, list_att)
+
+    def test_method_to_dict(self):
+        self.new_model.name = "Holberton"
+        self.new_model.my_number = 98
+        dict_rep = self.new_model.to_dict()
+        list_att = ['id', 'created_at', 'updated_at',
+                    'name', 'my_number', '__class__']
+        num_att = 0
+        for att in dict_rep.keys():
+            if att in list_att:
+                num_att += 1
+        self.assertTrue(6 == num_att)
+
+if __name__ == '__main__':
     unittest.main()

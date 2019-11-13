@@ -1,73 +1,103 @@
 #!/usr/bin/python3
-"""test for review"""
-import unittest
-import os
+""" unit test for class Review """
+
 from models.review import Review
-from models.base_model import BaseModel
+import unittest
 import pep8
 
 
-class TestReview(unittest.TestCase):
-    """this will test the place class"""
+class TestReviewDocs(unittest.TestCase):
+    """ validate docstring in the class """
 
+    def test_doc_class(self):
+        """ validate documentation class """
+        doc = Review.__doc__
+        assert doc is not None
+
+    def test_doc_methods_class(self):
+        """ validate documentation methods """
+        l_meth = ["save", "__init__", "__str__", "to_dict"]
+        for key in Review.__dict__.keys():
+            if key is l_meth:
+                doc = key.__doc__
+                assert doc is not None
+
+
+class TestReviewInstances(unittest.TestCase):
+    """ validate creation objects and use methods """
     @classmethod
     def setUpClass(cls):
-        """set up for test"""
-        cls.rev = Review()
-        cls.rev.place_id = "4321-dcba"
-        cls.rev.user_id = "123-bca"
-        cls.rev.text = "The srongest in the Galaxy"
+        ''' new_review up '''
+        cls.new_review = Review()
+        cls.new_review.text = "Comment"
+        cls.new_review.save()
+        cls.new_review_str = cls.new_review.to_dict()
+
+    def test_create_object(self):
+        """ validate created instance """
+        self.assertIsInstance(self.new_review, Review)
+
+    def test_string_representation(self):
+        """ validate string representation """
+        rep_str = str(self.new_review)
+        list_att = ['Review', 'id', 'created_at', 'updated_at']
+        num_att = 0
+        for att in list_att:
+            if att in rep_str:
+                num_att += 1
+        self.assertTrue(4 == num_att)
+
+    def test_method_save(self):
+        """ validate save method """
+        current = self.new_review.updated_at
+        self.new_review.save()
+        new = self.new_review.updated_at
+        self.assertNotEqual(current, new)
+
+    def test_hasMethods(self):
+        ''' test the instance have the methods  '''
+        self.assertTrue(hasattr(self.new_review, '__str__'))
+        self.assertTrue(hasattr(self.new_review, '__init__'))
+        self.assertTrue(hasattr(self.new_review, 'to_dict'))
+        self.assertTrue(hasattr(self.new_review, 'save'))
+
+    def test_add_attributes(self):
+        """ add attributes to object"""
+        self.new_review.text = "Comments"
+        list_att = [self.new_review.text]
+        expected = ["Comments"]
+        self.assertEqual(expected, list_att)
+
+    def test_method_to_dict(self):
+        self.new_review.text = "Comments"
+        dict_rep = self.new_review.to_dict()
+        list_att = ['id', 'created_at', 'updated_at',
+                    'text', '__class__']
+        num_att = 0
+        for att in dict_rep.keys():
+            if att in list_att:
+                num_att += 1
+        self.assertTrue(5 == num_att)
+
+    def test_pep8_conformance(self):
+        ''' Test that we conform to PEP8 '''
+        pep8style = pep8.StyleGuide(quiet=True)
+        result = pep8style.check_files([
+                                        'models/review.py',
+                                        'tests/test_models/test_review.py'
+                                        ])
+        self.assertEqual(result.total_errors, 0,
+                         "Found code style errors (and warnings).")
 
     @classmethod
-    def teardown(cls):
-        """at the end of the test this will tear it down"""
-        del cls.rev
-
-    def tearDown(self):
-        """teardown"""
+    def tearDownClass(cls):
+        ''' new_review Down '''
+        del cls.new_review
         try:
-            os.remove("file.json")
-        except Exception:
+            os.remove("objects.json")
+        except BaseException:
             pass
 
-    def test_pep8_Review(self):
-        """Tests pep8 style"""
-        style = pep8.StyleGuide(quiet=True)
-        p = style.check_files(['models/review.py'])
-        self.assertEqual(p.total_errors, 0, "fix pep8")
 
-    def test_checking_for_docstring_Review(self):
-        """checking for docstrings"""
-        self.assertIsNotNone(Review.__doc__)
-
-    def test_attributes_review(self):
-        """chekcing if review have attributes"""
-        self.assertTrue('id' in self.rev.__dict__)
-        self.assertTrue('created_at' in self.rev.__dict__)
-        self.assertTrue('updated_at' in self.rev.__dict__)
-        self.assertTrue('place_id' in self.rev.__dict__)
-        self.assertTrue('text' in self.rev.__dict__)
-        self.assertTrue('user_id' in self.rev.__dict__)
-
-    def test_is_subclass_Review(self):
-        """test if review is subclass of BaseModel"""
-        self.assertTrue(issubclass(self.rev.__class__, BaseModel), True)
-
-    def test_attribute_types_Review(self):
-        """test attribute type for Review"""
-        self.assertEqual(type(self.rev.text), str)
-        self.assertEqual(type(self.rev.place_id), str)
-        self.assertEqual(type(self.rev.user_id), str)
-
-    def test_save_Review(self):
-        """test if the save works"""
-        self.rev.save()
-        self.assertNotEqual(self.rev.created_at, self.rev.updated_at)
-
-    def test_to_dict_Review(self):
-        """test if dictionary works"""
-        self.assertEqual('to_dict' in dir(self.rev), True)
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()
