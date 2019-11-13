@@ -101,7 +101,6 @@ class HBNBCommand(cmd.Cmd):
         except NameError:
             print("** class doesn't exist **")
 
-
     def count(self, line):
         """
         cuenta el numero de instancias de una clase
@@ -119,7 +118,6 @@ class HBNBCommand(cmd.Cmd):
             print(counter)
         except NameError:
             print("** class doesn't exist **")
-
 
     def default(self, line):
         """
