@@ -12,6 +12,15 @@ from models.place import Place
 from models.review import Review
 from shlex import split
 
+BaseModel = base_model.BaseModel
+FileStorage = file_storage.FileStorage
+User = user.User
+Place = place.Place
+State = state.State
+City = city.City
+Amenity = amenity.Amenity
+Review = review.Review
+
 
 class HBNBCommand(cmd.Cmd):
     """
