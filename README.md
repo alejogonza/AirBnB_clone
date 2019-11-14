@@ -94,6 +94,10 @@ ferox@ferox-PC:~/Desktop/AirBnB_clone$ ./console.py
 ferox@ferox-PC:~/Desktop/AirBnB_clone$
 
 ```
+### Flow chart :pencil2:
+
+![flow](https://i.ibb.co/jgdK09G/Diagrama-en-blanco-2.png)
+
 
 ### Built with
 python3 (3.4.3)
