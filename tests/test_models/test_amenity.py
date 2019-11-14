@@ -57,7 +57,7 @@ class TestAmenity(unittest.TestCase):
         self.assertNotEqual(self.amenity.created_at, self.amenity.updated_at)
 
     def Amenity_dict(self):
-        """dictionary"""
+        """dict"""
         self.assertEqual('to_dict' in dir(self.amenity), True)
 
 
