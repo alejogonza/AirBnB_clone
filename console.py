@@ -17,6 +17,10 @@ class HBNBCommand(cmd.Cmd):
     """
     punto de entrada para el interprete airbnb
     """
+
+    intro = ("Bienvenido a AirBnB console." +
+             " Escribe help o ? para ver la lista de comandos")
+
     prompt = "(hbnb) "
 
     a_classes = {"BaseModel", "User", "State", "City",
