@@ -2,10 +2,10 @@
 
 ![HBnB Logo](https://i.ibb.co/MMvC1rY/65f4a1dd9c51265f49d0.png)
 
-### Project Description
+## Project Description
 This is our first project and prototype clone of AirBnB.
 
-### Requirements & Installation
+## Requirements & Installation
 Have experience in python3, a linux terminal CLI (Command-Line Interface) that will work as the enviroment of the project.
 
 For install and setup our prototype you will need to first clone it with this command:
@@ -28,7 +28,7 @@ Opening the console you'll need to navigate to the project folder name as "AirBn
 |[show] | shows an object based on class name & ID |
 |[update] | Updates an object based on the class name and ID by adding or updating attribute (Saves the change into the JSON file) |
 
-### Supported Classes
+## Supported Classes
  - BaseModel
  - User
  - State
@@ -56,9 +56,9 @@ Opening the console you'll need to navigate to the project folder name as "AirBn
 ➜  AirBnB_clone git:(master) ✗
 ```
 
-## Built with
+### Built with
 python3 (3.4.3)
 
-### Authors
+## Authors
 Alejandro Gonzalez Serna - @alejogonza
 David Bravo Beltran - @dbravo0
