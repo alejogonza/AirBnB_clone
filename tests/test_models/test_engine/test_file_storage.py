@@ -63,7 +63,7 @@ class TestFileStorage(unittest.TestCase):
 
     def filestorage_reload(self):
         """
-        reload filestorage
+        reload
         """
         self.storage.save()
         Root = os.path.dirname(os.path.abspath("console.py"))
