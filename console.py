@@ -15,7 +15,7 @@ from shlex import split
 
 class HBNBCommand(cmd.Cmd):
     """
-    punto de entrada para el interprete
+    punto de entrada para el interprete airbnb
     """
     prompt = "(hbnb) "
 
