@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""test for review"""
+"""test para review"""
 import unittest
 import os
 from models.review import Review
@@ -8,40 +8,38 @@ import pep8
 
 
 class TestReview(unittest.TestCase):
-    """this will test the place class"""
+    """clase para place class"""
 
     @classmethod
-    def setUpClass(cls):
-        """set up for test"""
+    def Config(cls):
         cls.rev = Review()
-        cls.rev.place_id = "4321-dcba"
-        cls.rev.user_id = "123-bca"
-        cls.rev.text = "The srongest in the Galaxy"
+        cls.rev.place_id = "6969-nini"
+        cls.rev.user_id = "9696-nini"
+        cls.rev.text = "Nani no xd"
 
     @classmethod
-    def teardown(cls):
-        """at the end of the test this will tear it down"""
+    def Cleardelete(cls):
         del cls.rev
 
-    def tearDown(self):
-        """teardown"""
+    def ClearDelete(self):
+        """ClearDelete"""
         try:
             os.remove("file.json")
         except Exception:
             pass
 
-    def test_pep8_Review(self):
-        """Tests pep8 style"""
+    def Review_style(self):
+        """pep8"""
         style = pep8.StyleGuide(quiet=True)
-        p = style.check_files(['models/review.py'])
-        self.assertEqual(p.total_errors, 0, "fix pep8")
+        pep = style.check_files(['models/review.py'])
+        self.assertEqual(pep.total_errors, 0, "fix pep8")
 
-    def test_checking_for_docstring_Review(self):
-        """checking for docstrings"""
+    def Review_docsting(self):
+        """docstrings"""
         self.assertIsNotNone(Review.__doc__)
 
-    def test_attributes_review(self):
-        """chekcing if review have attributes"""
+    def Review_attributes(self):
+        """attributes"""
         self.assertTrue('id' in self.rev.__dict__)
         self.assertTrue('created_at' in self.rev.__dict__)
         self.assertTrue('updated_at' in self.rev.__dict__)
@@ -49,23 +47,23 @@ class TestReview(unittest.TestCase):
         self.assertTrue('text' in self.rev.__dict__)
         self.assertTrue('user_id' in self.rev.__dict__)
 
-    def test_is_subclass_Review(self):
-        """test if review is subclass of BaseModel"""
+    def Review_subclass(self):
+        """subclass of BaseModel"""
         self.assertTrue(issubclass(self.rev.__class__, BaseModel), True)
 
-    def test_attribute_types_Review(self):
-        """test attribute type for Review"""
+    def Review_test_attrib(self):
+        """test attrib"""
         self.assertEqual(type(self.rev.text), str)
         self.assertEqual(type(self.rev.place_id), str)
         self.assertEqual(type(self.rev.user_id), str)
 
-    def test_save_Review(self):
-        """test if the save works"""
+    def Review_save(self):
+        """save"""
         self.rev.save()
         self.assertNotEqual(self.rev.created_at, self.rev.updated_at)
 
-    def test_to_dict_Review(self):
-        """test if dictionary works"""
+    def Review_dict(self):
+        """dictionary"""
         self.assertEqual('to_dict' in dir(self.rev), True)
 
 

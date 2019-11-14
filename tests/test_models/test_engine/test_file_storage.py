@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""test for file storage"""
+"""test para file storage"""
 import unittest
 import pep8
 import json
@@ -15,37 +15,35 @@ from models.engine.file_storage import FileStorage
 
 
 class TestFileStorage(unittest.TestCase):
-    '''this will test the FileStorage'''
+    '''clase para FileStorage'''
 
     @classmethod
-    def setUpClass(cls):
-        """set up for test"""
+    def Config(cls):
         cls.user = User()
-        cls.user.first_name = "Kev"
-        cls.user.last_name = "Yo"
-        cls.user.email = "1234@yahoo.com"
+        cls.user.first_name = "alejo"
+        cls.user.last_name = "gonza"
+        cls.user.email = "alejo@gmail.com"
         cls.storage = FileStorage()
 
     @classmethod
-    def teardown(cls):
-        """at the end of the test this will tear it down"""
+    def Cleardelete(cls):
         del cls.user
 
-    def tearDown(self):
-        """teardown"""
+    def ClearDelete(self):
+        """ClearDelete"""
         try:
             os.remove("file.json")
         except Exception:
             pass
 
-    def test_pep8_FileStorage(self):
-        """Tests pep8 style"""
+    def FileStorage_style(self):
+        """pep8"""
         style = pep8.StyleGuide(quiet=True)
-        p = style.check_files(['models/engine/file_storage.py'])
-        self.assertEqual(p.total_errors, 0, "fix pep8")
+        pep = style.check_files(['models/engine/file_storage.py'])
+        self.assertEqual(pep.total_errors, 0, "fix pep8")
 
     def test_all(self):
-        """tests if all works in File Storage"""
+        """all in File Storage"""
         storage = FileStorage()
         obj = storage.all()
         self.assertIsNotNone(obj)
@@ -53,19 +51,19 @@ class TestFileStorage(unittest.TestCase):
         self.assertIs(obj, storage._FileStorage__objects)
 
     def test_new(self):
-        """test when new is created"""
+        """new"""
         storage = FileStorage()
         obj = storage.all()
         user = User()
-        user.id = 123455
-        user.name = "Kevin"
+        user.id = 6969
+        user.name = "alejo"
         storage.new(user)
         key = user.__class__.__name__ + "." + str(user.id)
         self.assertIsNotNone(obj[key])
 
-    def test_reload_filestorage(self):
+    def filestorage_reload(self):
         """
-        tests reload
+        reload filestorage
         """
         self.storage.save()
         Root = os.path.dirname(os.path.abspath("console.py"))

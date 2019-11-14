@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""test for state"""
+"""test para state"""
 import unittest
 import os
 from models.state import State
@@ -8,58 +8,56 @@ import pep8
 
 
 class TestState(unittest.TestCase):
-    """this will test the State class"""
+    """clase para State class"""
 
     @classmethod
-    def setUpClass(cls):
-        """set up for test"""
+    def Config(cls):
         cls.state = State()
-        cls.state.name = "CA"
+        cls.state.name = "CO"
 
     @classmethod
-    def teardown(cls):
-        """at the end of the test this will tear it down"""
+    def Cleardelete(cls):
         del cls.state
 
-    def tearDown(self):
-        """teardown"""
+    def ClearDelete(self):
+        """ClearDelete"""
         try:
             os.remove("file.json")
         except Exception:
             pass
 
-    def test_pep8_Review(self):
-        """Tests pep8 style"""
+    def Review_style(self):
+        """pep8"""
         style = pep8.StyleGuide(quiet=True)
-        p = style.check_files(['models/state.py'])
-        self.assertEqual(p.total_errors, 0, "fix pep8")
+        pep = style.check_files(['models/state.py'])
+        self.assertEqual(pep.total_errors, 0, "fix pep8")
 
-    def test_checking_for_docstring_State(self):
-        """checking for docstrings"""
+    def State_docstrings(self):
+        """docstrings"""
         self.assertIsNotNone(State.__doc__)
 
-    def test_attributes_State(self):
-        """chekcing if State have attributes"""
+    def State_attributes(self):
+        """attributes"""
         self.assertTrue('id' in self.state.__dict__)
         self.assertTrue('created_at' in self.state.__dict__)
         self.assertTrue('updated_at' in self.state.__dict__)
         self.assertTrue('name' in self.state.__dict__)
 
-    def test_is_subclass_State(self):
-        """test if State is subclass of BaseModel"""
+    def State_subclass(self):
+        """subclass of BaseModel"""
         self.assertTrue(issubclass(self.state.__class__, BaseModel), True)
 
-    def test_attribute_types_State(self):
-        """test attribute type for State"""
+    def State_attribute(self):
+        """attribute"""
         self.assertEqual(type(self.state.name), str)
 
-    def test_save_State(self):
-        """test if the save works"""
+    def State_save(self):
+        """save"""
         self.state.save()
         self.assertNotEqual(self.state.created_at, self.state.updated_at)
 
-    def test_to_dict_State(self):
-        """test if dictionary works"""
+    def State_dict(self):
+        """dictionary"""
         self.assertEqual('to_dict' in dir(self.state), True)
 
 

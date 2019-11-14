@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""test for amenity"""
+"""test para amenity"""
 import unittest
 import os
 from models.amenity import Amenity
@@ -8,58 +8,56 @@ import pep8
 
 
 class TestAmenity(unittest.TestCase):
-    """this will test the Amenity class"""
+    """clase para amenity test"""
 
     @classmethod
-    def setUpClass(cls):
-        """set up for test"""
+    def Config(cls):
         cls.amenity = Amenity()
-        cls.amenity.name = "Breakfast"
+        cls.amenity.name = "Nodejs"
 
     @classmethod
-    def teardown(cls):
-        """at the end of the test this will tear it down"""
+    def Cleardelete(cls):
         del cls.amenity
 
-    def tearDown(self):
-        """teardown"""
+    def ClearDelete(self):
+        """ClearDelete"""
         try:
             os.remove("file.json")
         except Exception:
             pass
 
-    def test_pep8_Amenity(self):
-        """Tests pep8 style"""
+    def Amenity_style(self):
+        """pep8"""
         style = pep8.StyleGuide(quiet=True)
-        p = style.check_files(['models/amenity.py'])
-        self.assertEqual(p.total_errors, 0, "fix pep8")
+        pep = style.check_files(['models/amenity.py'])
+        self.assertEqual(pep.total_errors, 0, "fix pep8")
 
-    def test_checking_for_docstring_Amenity(self):
-        """checking for docstrings"""
+    def Amenity_docstring(self):
+        """docstrings"""
         self.assertIsNotNone(Amenity.__doc__)
 
-    def test_attributes_Amenity(self):
-        """chekcing if amenity have attibutes"""
+    def Amenity_attrib(self):
+        """attibutes"""
         self.assertTrue('id' in self.amenity.__dict__)
         self.assertTrue('created_at' in self.amenity.__dict__)
         self.assertTrue('updated_at' in self.amenity.__dict__)
         self.assertTrue('name' in self.amenity.__dict__)
 
-    def test_is_subclass_Amenity(self):
-        """test if Amenity is subclass of Basemodel"""
+    def Amenity_subclass(self):
+        """subclass"""
         self.assertTrue(issubclass(self.amenity.__class__, BaseModel), True)
 
-    def test_attribute_types_Amenity(self):
-        """test attribute type for Amenity"""
+    def Amenity_test_attrib(self):
+        """test attrib"""
         self.assertEqual(type(self.amenity.name), str)
 
-    def test_save_Amenity(self):
-        """test if the save works"""
+    def Amenity_save(self):
+        """save"""
         self.amenity.save()
         self.assertNotEqual(self.amenity.created_at, self.amenity.updated_at)
 
-    def test_to_dict_Amenity(self):
-        """test if dictionary works"""
+    def Amenity_dict(self):
+        """dict"""
         self.assertEqual('to_dict' in dir(self.amenity), True)
 
 
