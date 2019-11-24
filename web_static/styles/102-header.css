@@ -5,16 +5,16 @@ header .headerone{
     border-bottom:1px solid #cccccc ;
 }
 
-div .logo{
+div .cont {
     height: 100%;
- 
+    width: 150px;
+}
+
+header div.logo {
+    height: 100%;
+   
     margin-left: 20px;
     background-image: url("https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/268/logo.png");
     background-repeat: no-repeat;
     background-position: left center;
-}
-
-div .cont {
-    height: 100%;
-    width: 150px;
 }
